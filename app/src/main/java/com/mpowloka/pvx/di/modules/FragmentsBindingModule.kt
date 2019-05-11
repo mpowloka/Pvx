@@ -2,6 +2,7 @@ package com.mpowloka.pvx.di.modules
 
 import com.mpowloka.pvx.di.FragmentScoped
 import com.mpowloka.pvx.localizationdetails.LocalizationDetailsFragment
+import com.mpowloka.pvx.localizationdetails.di.LocalizationDetailsModule
 import com.mpowloka.pvx.localizations.LocalizationsFragment
 import com.mpowloka.pvx.localizations.di.LocalizationsModule
 import dagger.Module
@@ -15,6 +16,6 @@ abstract class FragmentsBindingModule {
     abstract fun localizationsFragment(): LocalizationsFragment
 
     @FragmentScoped
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = [LocalizationDetailsModule::class])
     abstract fun localizationDetailsFragment(): LocalizationDetailsFragment
 }

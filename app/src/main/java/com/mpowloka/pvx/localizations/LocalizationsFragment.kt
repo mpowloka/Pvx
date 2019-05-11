@@ -54,10 +54,15 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .`as`(autoDisposable())
-            .subscribe { adapterItems ->
-                localizationsRecyclerAdapter.items = adapterItems
-                localizationsRecyclerAdapter.notifyDataSetChanged()
-            }
+            .subscribe(
+                { adapterItems ->
+                    localizationsRecyclerAdapter.items = adapterItems
+                    localizationsRecyclerAdapter.notifyDataSetChanged()
+                },
+                { exception ->
+                    exception.printStackTrace()
+                }
+            )
     }
 
     private fun setupRecyclerView() {
