@@ -1,0 +1,10 @@
+@SuppressWarnings("GrMethodMayBeStatic")
+def dependencyGroup(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext.navigation = dependencyGroup {
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+}
