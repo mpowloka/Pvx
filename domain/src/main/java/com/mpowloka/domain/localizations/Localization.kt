@@ -1,4 +1,4 @@
-package com.mpowloka.domain
+package com.mpowloka.domain.localizations
 
 data class Localization(
     val id: Long,
