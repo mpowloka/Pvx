@@ -8,8 +8,7 @@
     </style>
 
     <style name="ActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
     </style>
 
 </resources>
