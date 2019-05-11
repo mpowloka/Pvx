@@ -9,9 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.localizations.list.LocalizationsAdapterItem
 import com.mpowloka.pvx.localizations.list.LocalizationsRecyclerAdapter
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_localizations.*
+import javax.inject.Inject
 
-class LocalizationsFragment : Fragment() {
+class LocalizationsFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var localizationsRecyclerAdapter: LocalizationsRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_localizations, container, false)
@@ -24,12 +29,10 @@ class LocalizationsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = LocalizationsRecyclerAdapter()
-
         localizations_recycler.layoutManager = LinearLayoutManager(context)
-        localizations_recycler.adapter = adapter
+        localizations_recycler.adapter = localizationsRecyclerAdapter
 
-        adapter.items = listOf(
+        localizationsRecyclerAdapter.items = listOf(
             LocalizationsAdapterItem.Localization("London"),
             LocalizationsAdapterItem.Localization("Tokyo"),
             LocalizationsAdapterItem.Localization("Cheese"),
