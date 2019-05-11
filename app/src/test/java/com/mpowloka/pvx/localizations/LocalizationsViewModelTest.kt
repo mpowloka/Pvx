@@ -25,7 +25,7 @@ class LocalizationsViewModelTest {
     fun adapterItems_holdsItemsWithLocalizationsFromRepository() {
 
         val expectedItems = LOCALIZATIONS_FROM_REPOSITORY.map {
-            LocalizationsAdapterItem.Localization(it.name)
+            LocalizationsAdapterItem.LocalizationItem(it)
         }
 
         SUT.localizations.test().assertValue(

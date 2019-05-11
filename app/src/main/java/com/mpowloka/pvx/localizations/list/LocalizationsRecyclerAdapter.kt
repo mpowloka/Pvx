@@ -1,11 +1,12 @@
 package com.mpowloka.pvx.localizations.list
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mpowloka.pvx.R
 
-class LocalizationsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LocalizationsRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<LocalizationsAdapterItem> = emptyList()
 
@@ -26,9 +27,9 @@ class LocalizationsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         LOCALIZATION_TYPE -> {
 
             val localizationHolder = holder as LocalizationViewHolder
-            val localization = items[position] as LocalizationsAdapterItem.Localization
+            val localization = items[position] as LocalizationsAdapterItem.LocalizationItem
 
-            localizationHolder.bind(localization.localizationName)
+            localizationHolder.bind(localization.localization)
         }
 
         else -> {
