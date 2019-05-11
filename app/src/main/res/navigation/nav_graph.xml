@@ -8,6 +8,25 @@
               android:name="com.mpowloka.pvx.localizations.LocalizationsFragment"
               android:label="LocalizationsFrgment"
 
-              tools:layout="@layout/fragment_localizations"/>
+              tools:layout="@layout/fragment_localizations">
+
+        <action
+                android:id="@+id/toLocalizationDetails"
+                app:destination="@id/localizationDetailsFrgment"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/localizationDetailsFrgment"
+              android:name="com.mpowloka.pvx.localizationdetails.LocalizationDetailsFragment"
+              android:label="LocalizationDetailsFragment"
+
+              tools:layout="@layout/fragment_localization_details">
+
+        <argument
+                android:name="localizationId"
+                app:argType="long"
+                android:defaultValue="-1L" />
+
+    </fragment>
 
 </navigation>

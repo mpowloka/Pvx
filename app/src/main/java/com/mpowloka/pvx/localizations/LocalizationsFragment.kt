@@ -4,19 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mpowloka.domain.localizations.Localization
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.base.BaseViewModelFragment
+import com.mpowloka.pvx.localizations.list.LocalizationViewHolder
 import com.mpowloka.pvx.localizations.list.LocalizationsRecyclerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_localizations.*
 import javax.inject.Inject
 
-class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>() {
+class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
+    LocalizationViewHolder.OnLocalizationClickedListener{
 
     @Inject
     lateinit var localizationsRecyclerAdapter: LocalizationsRecyclerAdapter
+
+    override fun onLocalizationClicked(localization: Localization) {
+        findNavController().navigate(
+            LocalizationsFragmentDirections.toLocalizationDetails(
+                localization.id
+            )
+        )
+    }
 
     override fun getViewModelClass() = LocalizationsViewModel::class.java
 

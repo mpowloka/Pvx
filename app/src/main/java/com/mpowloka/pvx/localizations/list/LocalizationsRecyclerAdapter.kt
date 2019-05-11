@@ -6,13 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mpowloka.pvx.R
 
-class LocalizationsRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LocalizationsRecyclerAdapter(
+    private val onLocalizationClickedListener: LocalizationViewHolder.OnLocalizationClickedListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<LocalizationsAdapterItem> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
 
         LOCALIZATION_TYPE -> LocalizationViewHolder(
+            onLocalizationClickedListener,
             LayoutInflater.from(parent.context).inflate(R.layout.item_localization, parent, false)
         )
 

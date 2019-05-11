@@ -9,8 +9,8 @@ import dagger.Provides
 class LocalizationsModule {
 
     @Provides
-    fun localizationsRecyclerAdapter(): LocalizationsRecyclerAdapter {
-        return LocalizationsRecyclerAdapter()
+    fun localizationsRecyclerAdapter(localizationsFragment: LocalizationsFragment): LocalizationsRecyclerAdapter {
+        return LocalizationsRecyclerAdapter(localizationsFragment)
     }
 
 }
