@@ -3,6 +3,9 @@ package com.mpowloka.pvx.di
 import android.app.Application
 import com.mpowloka.data.di.RepositoriesModule
 import com.mpowloka.pvx.PvxApplication
+import com.mpowloka.pvx.di.modules.ActivityBindingModule
+import com.mpowloka.pvx.di.modules.FragmentsBindingModule
+import com.mpowloka.pvx.di.modules.ViewModelBindingModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,7 +18,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class,
         FragmentsBindingModule::class,
-        RepositoriesModule::class
+        RepositoriesModule::class,
+        ViewModelBindingModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<PvxApplication> {

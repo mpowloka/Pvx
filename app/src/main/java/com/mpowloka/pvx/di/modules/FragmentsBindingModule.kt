@@ -1,5 +1,6 @@
-package com.mpowloka.pvx.di
+package com.mpowloka.pvx.di.modules
 
+import com.mpowloka.pvx.di.FragmentScoped
 import com.mpowloka.pvx.localizations.LocalizationsFragment
 import com.mpowloka.pvx.localizations.di.LocalizationsModule
 import dagger.Module

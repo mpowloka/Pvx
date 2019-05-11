@@ -1,11 +1,12 @@
 package com.mpowloka.pvx
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
+import com.mpowloka.pvx.base.BaseViewModelActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseViewModelActivity<MainViewModel>() {
+
+    override fun getViewModelClass() = MainViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

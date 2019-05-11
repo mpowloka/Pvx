@@ -20,7 +20,12 @@ ext.kotlin = dependencyGroup {
 }
 
 ext.coreTesting = dependencyGroup {
+    testImplementation 'org.mockito:mockito-core:2.21.0'
     testImplementation 'junit:junit:4.12'
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1", {
+        exclude group: 'org.mockito', module: 'mockito-core'
+    })
+
     androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
 }
@@ -45,4 +50,10 @@ ext.reactiveX = dependencyGroup {
     implementation "com.uber.autodispose:autodispose-kotlin:$rx_autodispose_version"
     implementation "com.uber.autodispose:autodispose-android-kotlin:$rx_autodispose_version"
     implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$rx_autodispose_version"
+}
+
+ext.androidArchitecture = dependencyGroup {
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 }
