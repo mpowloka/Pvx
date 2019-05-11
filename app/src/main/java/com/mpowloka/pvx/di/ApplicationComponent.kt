@@ -1,6 +1,7 @@
 package com.mpowloka.pvx.di
 
 import android.app.Application
+import com.mpowloka.data.di.RepositoriesModule
 import com.mpowloka.pvx.PvxApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +14,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class,
-        FragmentsBindingModule::class
+        FragmentsBindingModule::class,
+        RepositoriesModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<PvxApplication> {
