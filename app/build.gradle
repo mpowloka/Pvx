@@ -33,6 +33,7 @@ dependencies {
     kotlin()
     compat()
     dagger()
+    reactiveX()
 
     coreTesting()
 

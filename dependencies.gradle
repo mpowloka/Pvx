@@ -33,3 +33,16 @@ ext.dagger = dependencyGroup {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 }
+
+ext.reactiveX = dependencyGroup {
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rx_binding_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-design:$rx_binding_version"
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+
+    implementation "com.uber.autodispose:autodispose-kotlin:$rx_autodispose_version"
+    implementation "com.uber.autodispose:autodispose-android-kotlin:$rx_autodispose_version"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$rx_autodispose_version"
+}
