@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mpowloka.domain.localizations.Localization
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.base.BaseViewModelFragment
+import com.mpowloka.pvx.main.ActionBarConfiguration
 import com.mpowloka.pvx.screens.common.LocalizationViewHolder
 import com.mpowloka.pvx.screens.localizations.list.LocalizationsRecyclerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_localizations.*
 import javax.inject.Inject
 
 class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
-    LocalizationViewHolder.OnLocalizationClickedListener{
+    LocalizationViewHolder.OnLocalizationClickedListener {
 
     @Inject
     lateinit var localizationsRecyclerAdapter: LocalizationsRecyclerAdapter
@@ -40,6 +41,13 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+
+        setupActionBar(
+            ActionBarConfiguration(
+                getString(R.string.pvx),
+                getString(R.string.all_localizations)
+            )
+        )
     }
 
     override fun onResume() {

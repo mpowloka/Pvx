@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mpowloka.domain.items.Item
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.base.BaseViewModelFragment
+import com.mpowloka.pvx.main.ActionBarConfiguration
+import com.mpowloka.pvx.main.UpButtonConfiguration
 import com.mpowloka.pvx.screens.localizationdetails.list.ItemViewHolder
 import com.mpowloka.pvx.screens.localizationdetails.list.LocalizationDetailsRecyclerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,6 +44,16 @@ class LocalizationDetailsFragment : BaseViewModelFragment<LocalizationDetailsVie
         extractArguments()
 
         setupRecycler()
+
+        setupActionBar(ActionBarConfiguration(
+            "single localization",
+            "single localization barcode",
+            UpButtonConfiguration(
+                true,
+                R.drawable.ic_home,
+                { findNavController().popBackStack(R.id.localizationsFrgment, false) }
+            )
+        ))
     }
 
     override fun onResume() {

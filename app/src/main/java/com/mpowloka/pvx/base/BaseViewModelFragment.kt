@@ -3,6 +3,8 @@ package com.mpowloka.pvx.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.mpowloka.pvx.main.ActionBarConfiguration
+import com.mpowloka.pvx.main.MainViewModel
 import com.uber.autodispose.AutoDispose
 import com.uber.autodispose.AutoDisposeConverter
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -23,6 +25,12 @@ abstract class BaseViewModelFragment<T : ViewModel> : DaggerFragment() {
     protected fun <T : ViewModel> getActivityViewModel(clazz: Class<T>): T? {
         val act = activity ?: return null
         return ViewModelProviders.of(act, viewModelFactory).get(clazz)
+    }
+
+    fun setupActionBar(actionBarConfiguration: ActionBarConfiguration) {
+        getActivityViewModel(MainViewModel::class.java)?.setActionBarConfiguration(
+            actionBarConfiguration
+        )
     }
 
     fun <T> autoDisposable(): AutoDisposeConverter<T> {
