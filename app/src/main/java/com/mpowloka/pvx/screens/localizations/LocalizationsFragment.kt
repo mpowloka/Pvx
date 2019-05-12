@@ -1,6 +1,8 @@
 package com.mpowloka.pvx.screens.localizations
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +44,8 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
 
         setupRecyclerView()
 
+        observeTypedPhrase()
+
         setupActionBar(
             ActionBarConfiguration(
                 getString(R.string.pvx),
@@ -58,7 +62,7 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
 
     @Suppress("UnstableApiUsage")
     private fun observeLocalizationsList() {
-        viewModel.localizations
+        viewModel.adapterItems
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .`as`(autoDisposable())
@@ -71,6 +75,20 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
                     exception.printStackTrace()
                 }
             )
+    }
+
+    private fun observeTypedPhrase() {
+        localizations_filter_et.addTextChangedListener(object: TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                viewModel.filterPhraseTyped(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+
+        })
     }
 
     private fun setupRecyclerView() {

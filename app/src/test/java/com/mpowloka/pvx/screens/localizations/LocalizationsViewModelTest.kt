@@ -28,7 +28,20 @@ class LocalizationsViewModelTest {
             LocalizationsAdapterItem.LocalizationItem(it)
         }
 
-        SUT.localizations.test().assertValue(
+        SUT.adapterItems.test().assertValue(
+            expectedItems
+        )
+    }
+
+    @Test
+    fun adapterItems_isFilteredByPhrase() {
+        val expectedItems = LOCALIZATIONS_FROM_REPOSITORY
+            .filter { it.name.contains(PHRASE) }
+            .map { LocalizationsAdapterItem.LocalizationItem(it) }
+
+        SUT.filterPhraseTyped(PHRASE)
+
+        SUT.adapterItems.test().assertValue(
             expectedItems
         )
     }
@@ -41,6 +54,9 @@ class LocalizationsViewModelTest {
     }
 
     companion object {
+
+        val PHRASE = "1"
+
         private val LOCALIZATIONS_FROM_REPOSITORY = listOf(
             Localization(1, "Loc1", "457-AGH", 5, 2),
             Localization(2, "Loc2", "457-CSR", 0, 0),
