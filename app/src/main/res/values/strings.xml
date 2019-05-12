@@ -9,4 +9,5 @@
     <string name="all_localizations">All localizations</string>
     <string name="localization_name_placeholder">Localization: %s</string>
     <string name="item_name_placeholder">Item: %s</string>
+    <string name="no_data_to_display">No data to display :(</string>
 </resources>

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.screens.common.LocalizationViewHolder
+import com.mpowloka.pvx.screens.common.NoDataViewHolder
 
 class ItemDetailsRecyclerAdapter(
     private val onLocalizationClickedListener: LocalizationViewHolder.OnLocalizationClickedListener
@@ -18,6 +19,12 @@ class ItemDetailsRecyclerAdapter(
             onLocalizationClickedListener,
             LayoutInflater.from(parent.context).inflate(R.layout.item_localization, parent, false)
         )
+
+        NO_DATA_TYPE -> {
+            NoDataViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
+            )
+        }
 
         else -> {
             throw IllegalArgumentException("$TAG: Unexpected ViewHolder type: $viewType")
@@ -35,6 +42,10 @@ class ItemDetailsRecyclerAdapter(
             localizationHolder.bind(itemLocalization.localization)
         }
 
+        NO_DATA_TYPE -> {
+
+        }
+
         else -> {
             throw IllegalArgumentException("$TAG: Unexpected ViewHolder class: ${holder::class.java.name}")
         }
@@ -44,7 +55,12 @@ class ItemDetailsRecyclerAdapter(
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        return LOCALIZATION_TYPE
+        return when (items[position]) {
+
+            is ItemDetailsAdapterItem.ItemLocalization -> LOCALIZATION_TYPE
+
+            is ItemDetailsAdapterItem.NoDataItem -> NO_DATA_TYPE
+        }
     }
 
     companion object {
@@ -52,5 +68,7 @@ class ItemDetailsRecyclerAdapter(
         private const val TAG = "ItemDetailsRecyclerAdapter"
 
         private const val LOCALIZATION_TYPE = 1
+
+        private const val NO_DATA_TYPE = 2
     }
 }

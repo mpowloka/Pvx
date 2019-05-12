@@ -88,6 +88,21 @@ class LocalizationDetailsViewModelTest {
         verifyNoMoreInteractions(itemsRepositoryMock)
     }
 
+    @Test
+    fun getAdapterItemsForLocalization_calledMultipleTimesWithSameId_RepositoryQueriedOnlyOnce_noItems_noDataItemReturned() {
+        mockNoItems()
+
+        SUT.getAdapterItemsForLocalization(LOCALIZATION_ID).test().assertValue {
+            it.size == 1 && it[0] is LocalizationDetailsAdapterItem.NoDataItem
+        }
+    }
+
+    private fun mockNoItems() {
+        whenever(itemsRepositoryMock.getItemsInLocalization(LOCALIZATION_ID)).thenReturn(
+            Flowable.just(emptyList())
+        )
+    }
+
     private fun mockRepositories() {
         itemsRepositoryMock = mock()
         whenever(itemsRepositoryMock.getItemsInLocalization(LOCALIZATION_ID)).thenReturn(

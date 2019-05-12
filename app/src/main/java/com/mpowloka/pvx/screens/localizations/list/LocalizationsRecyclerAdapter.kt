@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.screens.common.LocalizationViewHolder
+import com.mpowloka.pvx.screens.common.NoDataViewHolder
 
 class LocalizationsRecyclerAdapter(
     private val onLocalizationClickedListener: LocalizationViewHolder.OnLocalizationClickedListener
@@ -12,11 +13,15 @@ class LocalizationsRecyclerAdapter(
 
     var items: List<LocalizationsAdapterItem> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
 
         LOCALIZATION_TYPE -> LocalizationViewHolder(
             onLocalizationClickedListener,
             LayoutInflater.from(parent.context).inflate(R.layout.item_localization, parent, false)
+        )
+
+        NO_DATA_TYPE -> NoDataViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
         )
 
         else -> {
@@ -35,6 +40,10 @@ class LocalizationsRecyclerAdapter(
             localizationHolder.bind(localization.localization)
         }
 
+        NO_DATA_TYPE -> {
+
+        }
+
         else -> {
             throw IllegalArgumentException("$TAG: Unexpected ViewHolder class: ${holder::class.java.name}")
         }
@@ -44,7 +53,12 @@ class LocalizationsRecyclerAdapter(
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        return LOCALIZATION_TYPE
+        return when(items[position]) {
+
+            is LocalizationsAdapterItem.LocalizationItem -> LOCALIZATION_TYPE
+
+            is LocalizationsAdapterItem.NoDataItem -> NO_DATA_TYPE
+        }
     }
 
     companion object {
@@ -52,5 +66,7 @@ class LocalizationsRecyclerAdapter(
         private const val TAG = "LocalizationsRecyclerAdapter"
 
         private const val LOCALIZATION_TYPE = 1
+
+        private const val NO_DATA_TYPE = 2
     }
 }

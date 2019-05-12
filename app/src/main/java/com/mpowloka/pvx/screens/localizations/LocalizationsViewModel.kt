@@ -21,9 +21,16 @@ class LocalizationsViewModel @Inject constructor(
             localizationsRepository.getAllLocalizations(),
             filterPhraseSubject.toFlowable(BackpressureStrategy.BUFFER)
         ) { localizations, phrase ->
-            localizations
+
+            val localizationsToDisplay = localizations
                 .filter { it.name.contains(phrase) }
-                .map { LocalizationsAdapterItem.LocalizationItem(it) as LocalizationsAdapterItem }
+
+            if(localizationsToDisplay.isEmpty()) {
+                listOf(LocalizationsAdapterItem.NoDataItem())
+            } else {
+                localizationsToDisplay.map { LocalizationsAdapterItem.LocalizationItem(it) as LocalizationsAdapterItem }
+            }
+
         }
 
     }

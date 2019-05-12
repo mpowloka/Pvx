@@ -26,7 +26,15 @@ class LocalizationDetailsViewModel @Inject constructor(
         }
 
         return itemsRepository.getItemsInLocalization(localizationId).map { items ->
-            items.map { LocalizationDetailsAdapterItem.ItemItem(it) as LocalizationDetailsAdapterItem }
+
+
+            if(items.isEmpty()) {
+                listOf(LocalizationDetailsAdapterItem.NoDataItem())
+            } else {
+                items.map { LocalizationDetailsAdapterItem.ItemItem(it) as LocalizationDetailsAdapterItem }
+            }
+
+
         }.also {
             localizationsItemsCacheMap[localizationId] = it
         }

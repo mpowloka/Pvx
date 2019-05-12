@@ -5,6 +5,7 @@ import com.mpowloka.domain.items.Item
 import com.mpowloka.domain.items.ItemsRepository
 import com.mpowloka.domain.localizations.LocalizationsRepository
 import com.mpowloka.pvx.screens.itemdetails.list.ItemDetailsAdapterItem
+import com.mpowloka.pvx.screens.localizationdetails.list.LocalizationDetailsAdapterItem
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -24,7 +25,13 @@ class ItemDetailsViewModel @Inject constructor(
 
         return localizationsRepository.getLocalizationsWithItem(itemId)
             .map { items ->
-                items.map { ItemDetailsAdapterItem.ItemLocalization(it) as ItemDetailsAdapterItem }
+
+                if(items.isEmpty()) {
+                    listOf(ItemDetailsAdapterItem.NoDataItem())
+                } else {
+                    items.map { ItemDetailsAdapterItem.ItemLocalization(it) as ItemDetailsAdapterItem }
+                }
+
             }.also {
                 itemsAdapterItemsCacheMap[itemId] = it
             }

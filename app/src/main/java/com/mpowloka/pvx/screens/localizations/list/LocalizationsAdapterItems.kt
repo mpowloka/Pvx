@@ -6,4 +6,6 @@ sealed class LocalizationsAdapterItem {
 
     data class LocalizationItem(val localization: Localization) : LocalizationsAdapterItem()
 
+    class NoDataItem: LocalizationsAdapterItem()
+
 }

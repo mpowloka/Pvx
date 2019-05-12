@@ -46,6 +46,21 @@ class LocalizationsViewModelTest {
         )
     }
 
+    @Test
+    fun adapterItems_noLocalization_noDataItemReturned() {
+        mockNoLocalizations()
+
+        SUT.adapterItems.test().assertValue {
+            it.size == 1 && it[0] is LocalizationsAdapterItem.NoDataItem
+        }
+    }
+
+    private fun mockNoLocalizations() {
+        whenever(localizationsRepositoryMock.getAllLocalizations()).thenReturn(
+            Flowable.just(emptyList())
+        )
+    }
+
     private fun mockRepository() {
         localizationsRepositoryMock = mock()
         whenever(localizationsRepositoryMock.getAllLocalizations()).thenReturn(
