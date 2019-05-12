@@ -44,27 +44,40 @@ class LocalizationDetailsFragment : BaseViewModelFragment<LocalizationDetailsVie
         extractArguments()
 
         setupRecycler()
-
-        setupActionBar(ActionBarConfiguration(
-            "single localization",
-            "single localization barcode",
-            UpButtonConfiguration(
-                true,
-                R.drawable.ic_home,
-                { findNavController().popBackStack(R.id.localizationsFrgment, false) }
-            )
-        ))
     }
 
     override fun onResume() {
         super.onResume()
 
         displayLocalizationItems()
+
+        displayLocalizationDetails()
     }
 
-    private fun setupRecycler() {
-        localization_details_recycler.layoutManager = LinearLayoutManager(context)
-        localization_details_recycler.adapter = localizationDetailsRecyclerAdapter
+    @Suppress("UnstableApiUsage")
+    private fun displayLocalizationDetails() {
+        viewModel.getLocalizationForId(localizationId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .`as`(autoDisposable())
+            .subscribe(
+                { localization ->
+                    setupActionBar(ActionBarConfiguration(
+                        getString(R.string.localization_name_placeholder, localization.name),
+                        localization.barcode,
+                        UpButtonConfiguration(
+                            true,
+                            R.drawable.ic_home,
+                            { findNavController().popBackStack(R.id.localizationsFrgment, false) }
+                        )
+                    ))
+
+                },
+                { exception ->
+                    exception.printStackTrace()
+
+                }
+            )
     }
 
     @Suppress("UnstableApiUsage")
@@ -83,6 +96,11 @@ class LocalizationDetailsFragment : BaseViewModelFragment<LocalizationDetailsVie
                     exception.printStackTrace()
                 }
             )
+    }
+
+    private fun setupRecycler() {
+        localization_details_recycler.layoutManager = LinearLayoutManager(context)
+        localization_details_recycler.adapter = localizationDetailsRecyclerAdapter
     }
 
     private fun extractArguments() {

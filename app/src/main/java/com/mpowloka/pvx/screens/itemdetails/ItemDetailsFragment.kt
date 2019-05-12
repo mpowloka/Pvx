@@ -45,21 +45,40 @@ class ItemDetailsFragment : BaseViewModelFragment<ItemDetailsViewModel>(),
 
         setupRecycler()
 
-        setupActionBar(ActionBarConfiguration(
-            "single item",
-            "single item barcode",
-            UpButtonConfiguration(
-                true,
-                R.drawable.ic_home,
-                { findNavController().popBackStack(R.id.localizationsFrgment, false) }
-            )
-        ))
+
     }
 
     override fun onResume() {
         super.onResume()
 
         displayItems()
+
+        displayItemDetails()
+    }
+
+    @Suppress("UnstableApiUsage")
+    private fun displayItemDetails() {
+        viewModel.getItemForItemId(itemId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .`as`(autoDisposable())
+            .subscribe(
+                { item ->
+                    setupActionBar(ActionBarConfiguration(
+                        getString(R.string.item_name_placeholder, item.name),
+                        item.barcode,
+                        UpButtonConfiguration(
+                            true,
+                            R.drawable.ic_home,
+                            { findNavController().popBackStack(R.id.localizationsFrgment, false) }
+                        )
+                    ))
+
+                },
+                { exception ->
+                    exception.printStackTrace()
+                }
+            )
     }
 
     @Suppress("UnstableApiUsage")

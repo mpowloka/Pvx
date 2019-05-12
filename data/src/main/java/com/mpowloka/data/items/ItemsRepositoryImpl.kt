@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 class ItemsRepositoryImpl @Inject constructor() : ItemsRepository {
 
+    override fun getItemForId(id: Long): Flowable<Item> {
+        return Flowable.just(Item(1, "Item1", "1-ASDF-GAT"))
+    }
+
     override fun getItemsInLocalization(localizationId: Long): Flowable<List<Item>> {
         return Flowable.just(listOf(
             Item(1, "Item1", "1-ASDF-GAT"),

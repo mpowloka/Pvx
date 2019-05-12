@@ -1,5 +1,7 @@
 package com.mpowloka.pvx.screens.itemdetails
 
+import com.mpowloka.domain.items.Item
+import com.mpowloka.domain.items.ItemsRepository
 import com.mpowloka.domain.localizations.Localization
 import com.mpowloka.domain.localizations.LocalizationsRepository
 import com.mpowloka.pvx.screens.itemdetails.list.ItemDetailsAdapterItem
@@ -13,11 +15,15 @@ class ItemDetailsViewModelTest {
     private lateinit var SUT: ItemDetailsViewModel
 
     private lateinit var localizationsRepositoryMock: LocalizationsRepository
+    private lateinit var itemsRepositoryMock: ItemsRepository
 
     @Before
     fun setUp() {
-        mockRepository()
-        SUT = ItemDetailsViewModel(localizationsRepositoryMock)
+        mockRepositories()
+        SUT = ItemDetailsViewModel(
+            localizationsRepositoryMock,
+            itemsRepositoryMock
+        )
     }
 
     @Test
@@ -49,16 +55,48 @@ class ItemDetailsViewModelTest {
         result.test().assertValue(expectedResult)
     }
 
-    private fun mockRepository() {
+    @Test
+    fun getItemForItemId_calledMultipleTimesWithSameId_RepositoryQueriedOnlyOnce() {
+
+        SUT.getItemForItemId(ITEM_ID)
+        SUT.getItemForItemId(ITEM_ID)
+
+        verify(itemsRepositoryMock, times(1)).getItemForId(ITEM_ID)
+        verifyNoMoreInteractions(itemsRepositoryMock)
+
+    }
+
+    @Test
+    fun getItemForItemId_itemIdPassedToRepository() {
+        SUT.getItemForItemId(ITEM_ID)
+
+        verify(itemsRepositoryMock, times(1)).getItemForId(ITEM_ID)
+    }
+
+    @Test
+    fun getItemForItemId_itemFromRepositoryReturned() {
+        val result = SUT.getItemForItemId(ITEM_ID)
+
+        result.test().assertValue(ITEM)
+    }
+
+    private fun mockRepositories() {
         localizationsRepositoryMock = mock()
         whenever(localizationsRepositoryMock.getLocalizationsWithItem(ITEM_ID)).thenReturn(
             Flowable.just(LOCALIZATIONS_FROM_REPOSITORY)
+        )
+
+        itemsRepositoryMock = mock()
+        whenever(itemsRepositoryMock.getItemForId(ITEM_ID)).thenReturn(
+            Flowable.just(ITEM)
         )
     }
 
     companion object {
 
         private const val ITEM_ID = 42L
+
+        private val ITEM = Item(1, "Item1", "1-ASDF-GAT")
 
         private val LOCALIZATIONS_FROM_REPOSITORY = listOf(
             Localization(1, "Loc1", "457-AGH", 5, 2),

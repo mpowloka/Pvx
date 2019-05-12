@@ -7,6 +7,10 @@ import javax.inject.Inject
 
 class LocalizationsRepositoryImpl @Inject constructor() : LocalizationsRepository {
 
+    override fun getLocalizationForId(id: Long): Flowable<Localization> {
+        return Flowable.just(Localization(1, "Loc1", "457-AGH", 5, 2))
+    }
+
     override fun getAllLocalizations(): Flowable<List<Localization>> {
 
         return Flowable.just(
