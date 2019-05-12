@@ -1,12 +1,12 @@
 package com.mpowloka.pvx.di.modules
 
 import com.mpowloka.pvx.di.FragmentScoped
-import com.mpowloka.pvx.itemdetails.ItemDetailsFragment
-import com.mpowloka.pvx.itemdetails.di.ItemDetailsModule
-import com.mpowloka.pvx.localizationdetails.LocalizationDetailsFragment
-import com.mpowloka.pvx.localizationdetails.di.LocalizationDetailsModule
-import com.mpowloka.pvx.localizations.LocalizationsFragment
-import com.mpowloka.pvx.localizations.di.LocalizationsModule
+import com.mpowloka.pvx.screens.itemdetails.ItemDetailsFragment
+import com.mpowloka.pvx.screens.itemdetails.di.ItemDetailsModule
+import com.mpowloka.pvx.screens.localizationdetails.LocalizationDetailsFragment
+import com.mpowloka.pvx.screens.localizationdetails.di.LocalizationDetailsModule
+import com.mpowloka.pvx.screens.localizations.LocalizationsFragment
+import com.mpowloka.pvx.screens.localizations.di.LocalizationsModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

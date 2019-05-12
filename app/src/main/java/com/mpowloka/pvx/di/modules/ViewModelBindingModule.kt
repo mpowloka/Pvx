@@ -2,12 +2,12 @@ package com.mpowloka.pvx.di.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mpowloka.pvx.MainViewModel
+import com.mpowloka.pvx.main.MainViewModel
 import com.mpowloka.pvx.di.DaggerViewModelFactory
 import com.mpowloka.pvx.di.ViewModelKey
-import com.mpowloka.pvx.itemdetails.ItemDetailsViewModel
-import com.mpowloka.pvx.localizationdetails.LocalizationDetailsViewModel
-import com.mpowloka.pvx.localizations.LocalizationsViewModel
+import com.mpowloka.pvx.screens.itemdetails.ItemDetailsViewModel
+import com.mpowloka.pvx.screens.localizationdetails.LocalizationDetailsViewModel
+import com.mpowloka.pvx.screens.localizations.LocalizationsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

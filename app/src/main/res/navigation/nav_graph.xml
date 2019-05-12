@@ -5,7 +5,7 @@
             app:startDestination="@id/localizationsFrgment">
 
     <fragment android:id="@+id/localizationsFrgment"
-              android:name="com.mpowloka.pvx.localizations.LocalizationsFragment"
+              android:name="com.mpowloka.pvx.screens.localizations.LocalizationsFragment"
               android:label="LocalizationsFrgment"
 
               tools:layout="@layout/fragment_localizations">
@@ -22,7 +22,7 @@
     </fragment>
 
     <fragment android:id="@+id/localizationDetailsFrgment"
-              android:name="com.mpowloka.pvx.localizationdetails.LocalizationDetailsFragment"
+              android:name="com.mpowloka.pvx.screens.localizationdetails.LocalizationDetailsFragment"
               android:label="LocalizationDetailsFragment"
 
               tools:layout="@layout/fragment_localization_details">
@@ -43,7 +43,7 @@
     </fragment>
 
     <fragment android:id="@+id/itemDetailsFragment"
-              android:name="com.mpowloka.pvx.itemdetails.ItemDetailsFragment"
+              android:name="com.mpowloka.pvx.screens.itemdetails.ItemDetailsFragment"
               android:label="ItemDetailsFragment"
 
               tools:layout="@layout/fragment_item_details">
