@@ -25,7 +25,7 @@ class LocalizationDetailsViewModel @Inject constructor(
             return cachedValue
         }
 
-        return itemsRepository.getItemsInLocalization(localizationId).map { items ->
+        return itemsRepository.getItemsInLocalizationWithTotalCount(localizationId).map { items ->
 
 
             if(items.isEmpty()) {

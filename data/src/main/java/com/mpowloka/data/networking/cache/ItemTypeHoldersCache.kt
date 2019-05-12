@@ -29,4 +29,22 @@ class ItemTypeHoldersCache {
         }.toFlowable(BackpressureStrategy.BUFFER)
     }
 
+    fun getItemTypeTotalQuantities(): Flowable<List<ItemTypeIdWithTotalQuantity>> {
+        return itemTypeHoldersSubject.map { itemTypeHolderModels ->
+            itemTypeHolderModels.groupBy {
+                it.itemTypeId
+            }.map { entry ->
+                ItemTypeIdWithTotalQuantity(
+                    entry.key,
+                    entry.value.sumBy { it.quantity }
+                )
+            }
+        }.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    data class ItemTypeIdWithTotalQuantity(
+        val itemTypeId: Long,
+        val totalQuantity: Int
+    )
+
 }

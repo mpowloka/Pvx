@@ -36,9 +36,9 @@ class LocalizationDetailsRecyclerAdapter(
         ITEM_TYPE -> {
 
             val itemHolder = holder as ItemViewHolder
-            val item = items[position] as LocalizationDetailsAdapterItem.ItemItem
+            val itemWithTotalCount = items[position] as LocalizationDetailsAdapterItem.ItemItem
 
-            itemHolder.bind(item.item)
+            itemHolder.bind(itemWithTotalCount.item)
         }
 
         NO_DATA_TYPE -> {

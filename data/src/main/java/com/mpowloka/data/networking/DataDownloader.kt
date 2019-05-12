@@ -21,18 +21,18 @@ class DataDownloader @Inject constructor(
 
     fun downloadData() {
 
-        currentDisposable?.dispose()
-
         currentDisposable = api.downloadData()
             .firstOrError()
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { jsonDataModel ->
                     saveDataInCache(jsonDataModel)
+                    currentDisposable?.dispose()
                 },
                 { exception ->
                     println("Failed to download data")
                     exception.printStackTrace()
+                    currentDisposable?.dispose()
                 }
             )
     }

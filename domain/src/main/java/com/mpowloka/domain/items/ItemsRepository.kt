@@ -6,6 +6,6 @@ interface ItemsRepository {
 
     fun getItemForId(id: Long): Flowable<Item>
 
-    fun getItemsInLocalization(localizationId: Long): Flowable<List<Item>>
+    fun getItemsInLocalizationWithTotalCount(localizationId: Long): Flowable<List<ItemWithTotalCount>>
 
 }
