@@ -1,29 +1,39 @@
 package com.mpowloka.data.localizations
 
+import com.mpowloka.data.networking.cache.HoldersCache
+import com.mpowloka.data.networking.cache.ItemTypeHoldersCache
 import com.mpowloka.domain.localizations.Localization
 import com.mpowloka.domain.localizations.LocalizationsRepository
 import io.reactivex.Flowable
+import io.reactivex.rxkotlin.Flowables
 import javax.inject.Inject
 
-class LocalizationsRepositoryImpl @Inject constructor() : LocalizationsRepository {
+class LocalizationsRepositoryImpl @Inject constructor(
+    private val holdersCache: HoldersCache,
+    private val itemTypeHoldersCache: ItemTypeHoldersCache
+) : LocalizationsRepository {
 
     override fun getLocalizationForId(id: Long): Flowable<Localization> {
-        return Flowable.just(Localization(1, "Loc1", "457-AGH", 5, 2))
+        return holdersCache.getHolderForId(id).map {
+            it.toLocalization()
+        }
     }
 
     override fun getAllLocalizations(): Flowable<List<Localization>> {
 
-        return Flowable.just(
-            listOf(
-                Localization(1, "Loc1", "457-AGH", 5, 2),
-                Localization(2, "Loc2", "457-CSR", 0, 0),
-                Localization(3, "Loc3", "218-HGW", 3, 3)
-            )
-        )
+        return holdersCache.getHolders().map { models ->
+            models.map { it.toLocalization() }
+        }
 
     }
 
     override fun getLocalizationsWithItem(itemId: Long): Flowable<List<Localization>> {
-        return getAllLocalizations()
+        return Flowables.combineLatest(
+            holdersCache.getHolders(),
+            itemTypeHoldersCache.getItemHolderTypesForItemId(itemId)
+        ) { holderModels, itemTypeHoldersCache ->
+            val localizationIdsWithItem = itemTypeHoldersCache.map { it.holderId }
+            holderModels.filter { localizationIdsWithItem.contains(it.holderId) }.map { it.toLocalization() }
+        }
     }
 }

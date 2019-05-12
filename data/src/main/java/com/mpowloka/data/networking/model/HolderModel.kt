@@ -18,4 +18,16 @@ data class HolderModel(
         quantityOfPickedItems
     )
 
+    companion object {
+
+        val NO_HOLDER = HolderModel(
+            -1,
+            "",
+            "",
+            0,
+            0
+        )
+
+    }
+
 }
