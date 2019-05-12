@@ -1,5 +1,6 @@
 package com.mpowloka.data.networking
 
+import com.mpowloka.data.networking.model.JsonDataModel
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -9,7 +10,7 @@ import retrofit2.http.GET
 interface PvxApi {
 
     @GET("/test.json")
-    fun downloadData(): Observable<DataModel>
+    fun downloadData(): Observable<JsonDataModel>
 
     companion object {
 
