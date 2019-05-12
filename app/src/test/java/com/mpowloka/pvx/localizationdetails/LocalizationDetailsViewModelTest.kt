@@ -23,21 +23,21 @@ class LocalizationDetailsViewModelTest {
     }
 
     @Test
-    fun getItemsForLocalization_localizationPassedToRepository() {
+    fun getAdapterItemsForLocalization_localizationPassedToRepository() {
 
-        SUT.getItemsForLocalizationId(LOCALIZATION_ID)
+        SUT.getAdapterItemsForLocalization(LOCALIZATION_ID)
 
         verify(itemsRepositoryMock, times(1)).getItemsInLocalization(LOCALIZATION_ID)
     }
 
     @Test
-    fun getItemsForLocalization_valueFromRepositoryReturned() {
+    fun getAdapterItemsForLocalization_valueFromRepositoryReturned() {
 
         val expectedResult = ITEMS_FROM_REPOSITORY.map {
             LocalizationDetailsAdapterItem.ItemItem(it)
         }
 
-        val result = SUT.getItemsForLocalizationId(LOCALIZATION_ID)
+        val result = SUT.getAdapterItemsForLocalization(LOCALIZATION_ID)
 
         result.test().assertValue(
             expectedResult
@@ -46,12 +46,10 @@ class LocalizationDetailsViewModelTest {
     }
 
     @Test
-    fun getItemsForLocalization_repositoryInterractedOnlyOnceForSingleLocaliztion() {
+    fun getAdapterItemsForLocalization_calledMultipleTimesWithSameId_RepositoryQueriedOnlyOnce() {
 
-        SUT.getItemsForLocalizationId(LOCALIZATION_ID)
-        SUT.getItemsForLocalizationId(LOCALIZATION_ID)
-        SUT.getItemsForLocalizationId(LOCALIZATION_ID)
-        SUT.getItemsForLocalizationId(LOCALIZATION_ID)
+        SUT.getAdapterItemsForLocalization(LOCALIZATION_ID)
+        SUT.getAdapterItemsForLocalization(LOCALIZATION_ID)
 
         verify(itemsRepositoryMock, times(1)).getItemsInLocalization(LOCALIZATION_ID)
         verifyNoMoreInteractions(itemsRepositoryMock)

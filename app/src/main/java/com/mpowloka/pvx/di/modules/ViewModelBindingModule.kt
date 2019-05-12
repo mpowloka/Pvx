@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.mpowloka.pvx.MainViewModel
 import com.mpowloka.pvx.di.DaggerViewModelFactory
 import com.mpowloka.pvx.di.ViewModelKey
+import com.mpowloka.pvx.itemdetails.ItemDetailsViewModel
 import com.mpowloka.pvx.localizationdetails.LocalizationDetailsViewModel
 import com.mpowloka.pvx.localizations.LocalizationsViewModel
 import dagger.Binds
@@ -31,5 +32,10 @@ abstract class ViewModelBindingModule {
     @IntoMap
     @ViewModelKey(LocalizationDetailsViewModel::class)
     abstract fun localizationDetailsViewModel(viewModel: LocalizationDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ItemDetailsViewModel::class)
+    abstract fun itemDetailsViewModel(viewModel: ItemDetailsViewModel): ViewModel
 
 }

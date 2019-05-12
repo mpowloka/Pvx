@@ -25,14 +25,41 @@
               android:name="com.mpowloka.pvx.localizationdetails.LocalizationDetailsFragment"
               android:label="LocalizationDetailsFragment"
 
-
-
               tools:layout="@layout/fragment_localization_details">
 
         <argument
                 android:name="localizationId"
                 app:argType="long"
-                android:defaultValue="-1L" />
+                android:defaultValue="-1L"/>
+
+        <action android:id="@+id/toItemDetails"
+                app:destination="@+id/itemDetailsFragment"
+
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/itemDetailsFragment"
+              android:name="com.mpowloka.pvx.itemdetails.ItemDetailsFragment"
+              android:label="ItemDetailsFragment"
+
+              tools:layout="@layout/fragment_item_details">
+
+        <argument
+                android:name="itemId"
+                app:argType="long"
+                android:defaultValue="-1L"/>
+
+        <action android:id="@+id/toLocalizationDetails"
+                app:destination="@+id/localizationDetailsFrgment"
+
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     </fragment>
 

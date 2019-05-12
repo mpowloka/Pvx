@@ -13,7 +13,7 @@ class LocalizationDetailsViewModel @Inject constructor(
     private val localizationsItemsCacheMap
             = mutableMapOf<Long, Flowable<List<LocalizationDetailsAdapterItem>>>()
 
-    fun getItemsForLocalizationId(localizationId: Long): Flowable<List<LocalizationDetailsAdapterItem>> {
+    fun getAdapterItemsForLocalization(localizationId: Long): Flowable<List<LocalizationDetailsAdapterItem>> {
         val cachedValue = localizationsItemsCacheMap.get(localizationId)
         if(cachedValue != null) {
             return cachedValue

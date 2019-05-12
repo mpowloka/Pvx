@@ -19,4 +19,7 @@ class LocalizationsRepositoryImpl @Inject constructor() : LocalizationsRepositor
 
     }
 
+    override fun getLocalizationsWithItem(itemId: Long): Flowable<List<Localization>> {
+        return getAllLocalizations()
+    }
 }

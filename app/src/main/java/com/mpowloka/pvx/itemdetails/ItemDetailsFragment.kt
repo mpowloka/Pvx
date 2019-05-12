@@ -1,4 +1,4 @@
-package com.mpowloka.pvx.localizations
+package com.mpowloka.pvx.itemdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,54 +10,56 @@ import com.mpowloka.domain.localizations.Localization
 import com.mpowloka.pvx.R
 import com.mpowloka.pvx.base.BaseViewModelFragment
 import com.mpowloka.pvx.common.LocalizationViewHolder
-import com.mpowloka.pvx.localizations.list.LocalizationsRecyclerAdapter
+import com.mpowloka.pvx.itemdetails.list.ItemDetailsRecyclerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_localizations.*
+import kotlinx.android.synthetic.main.fragment_item_details.*
 import javax.inject.Inject
 
-class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
-    LocalizationViewHolder.OnLocalizationClickedListener{
+class ItemDetailsFragment : BaseViewModelFragment<ItemDetailsViewModel>(),
+    LocalizationViewHolder.OnLocalizationClickedListener {
 
     @Inject
-    lateinit var localizationsRecyclerAdapter: LocalizationsRecyclerAdapter
+    lateinit var itemDetailsRecyclerAdapter: ItemDetailsRecyclerAdapter
+
+    private var itemId = -1L
+
+    override fun getViewModelClass() = ItemDetailsViewModel::class.java
 
     override fun onLocalizationClicked(localization: Localization) {
         findNavController().navigate(
-            LocalizationsFragmentDirections.toLocalizationDetails(
-                localization.id
-            )
+            ItemDetailsFragmentDirections.toLocalizationDetails(localization.id)
         )
     }
 
-    override fun getViewModelClass() = LocalizationsViewModel::class.java
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_localizations, container, false)
+        return inflater.inflate(R.layout.fragment_item_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
+        extractArguments()
+
+        setupRecycler()
     }
 
     override fun onResume() {
         super.onResume()
 
-        observeLocalizationsList()
+        displayItems()
     }
 
     @Suppress("UnstableApiUsage")
-    private fun observeLocalizationsList() {
-        viewModel.localizations
+    private fun displayItems() {
+        viewModel.getAdapterItemsForItem(itemId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .`as`(autoDisposable())
             .subscribe(
                 { adapterItems ->
-                    localizationsRecyclerAdapter.items = adapterItems
-                    localizationsRecyclerAdapter.notifyDataSetChanged()
+                    itemDetailsRecyclerAdapter.items = adapterItems
+                    itemDetailsRecyclerAdapter.notifyDataSetChanged()
                 },
                 { exception ->
                     exception.printStackTrace()
@@ -65,13 +67,15 @@ class LocalizationsFragment : BaseViewModelFragment<LocalizationsViewModel>(),
             )
     }
 
-    private fun setupRecyclerView() {
-        localizations_recycler.layoutManager = LinearLayoutManager(context)
-        localizations_recycler.adapter = localizationsRecyclerAdapter
+    private fun setupRecycler() {
+        item_details_recycler.layoutManager = LinearLayoutManager(context)
+        item_details_recycler.adapter = itemDetailsRecyclerAdapter
     }
 
-    companion object {
-        private const val TAG = "LocalizationsFragment"
+    private fun extractArguments() {
+        itemId = ItemDetailsFragmentArgs
+            .fromBundle(arguments ?: return)
+            .itemId
     }
 
 }

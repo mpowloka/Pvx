@@ -1,4 +1,4 @@
-package com.mpowloka.pvx.localizations.list
+package com.mpowloka.pvx.common
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

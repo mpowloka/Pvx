@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mpowloka.domain.items.Item
 import com.mpowloka.pvx.R
@@ -26,7 +27,9 @@ class LocalizationDetailsFragment : BaseViewModelFragment<LocalizationDetailsVie
     override fun getViewModelClass() = LocalizationDetailsViewModel::class.java
 
     override fun onItemClicked(item: Item) {
-
+        findNavController().navigate(
+            LocalizationDetailsFragmentDirections.toItemDetails(item.id)
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,7 +58,7 @@ class LocalizationDetailsFragment : BaseViewModelFragment<LocalizationDetailsVie
     @Suppress("UnstableApiUsage")
     private fun displayLocalizationItems() {
         viewModel
-            .getItemsForLocalizationId(localizationId)
+            .getAdapterItemsForLocalization(localizationId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .`as`(autoDisposable())
