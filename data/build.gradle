@@ -36,6 +36,7 @@ dependencies {
     coreTesting()
     reactiveX()
     dagger()
+    retrofit()
 }
 repositories {
     mavenCentral()
