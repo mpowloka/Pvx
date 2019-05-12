@@ -1,6 +1,5 @@
-package com.mpowloka.data
+package com.mpowloka.data.networking
 
-import com.mpowloka.data.networking.PvxApi
 import org.junit.Before
 import org.junit.Test
 

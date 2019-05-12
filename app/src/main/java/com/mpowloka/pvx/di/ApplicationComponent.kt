@@ -1,7 +1,9 @@
 package com.mpowloka.pvx.di
 
 import android.app.Application
+import com.mpowloka.data.di.CacheModule
 import com.mpowloka.data.di.RepositoriesModule
+import com.mpowloka.data.di.RetrofitModule
 import com.mpowloka.pvx.PvxApplication
 import com.mpowloka.pvx.di.modules.ActivityBindingModule
 import com.mpowloka.pvx.di.modules.FragmentsBindingModule
@@ -19,7 +21,9 @@ import javax.inject.Singleton
         ActivityBindingModule::class,
         FragmentsBindingModule::class,
         RepositoriesModule::class,
-        ViewModelBindingModule::class
+        ViewModelBindingModule::class,
+        CacheModule::class,
+        RetrofitModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<PvxApplication> {

@@ -2,8 +2,9 @@ package com.mpowloka.data.networking.parser
 
 import com.mpowloka.data.networking.model.ItemTypeModel
 import com.mpowloka.data.networking.model.JsonDataModel
+import javax.inject.Inject
 
-class JsonDataItemTypesExtractor {
+class JsonDataItemTypesExtractor @Inject constructor(){
 
     @Suppress("UNCHECKED_CAST")
     fun extractItemTypes(dataModel: JsonDataModel): List<ItemTypeModel> {
